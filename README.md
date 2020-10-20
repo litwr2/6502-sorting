@@ -9,7 +9,7 @@ Shellsort depends on its *shelltabidx* parameter which is used in a normal Shell
 
 Various kinds of filling have been used for testing and benchmarking:
   * *random-1* &ndash; every byte is generated randomly by the standard C random number generator function, numbers in range 0 and 255 are generated;
-  * *random-2* &ndash; every byte is generated randomly by a quick and simple homebrew random number generator, numbers in range 0 and 255 aew generated;
+  * *random-2* &ndash; every byte is generated randomly by a quick and simple homebrew random number generator, numbers in range 0 and 255 are generated;
   * *2-values* &ndash; every byte is generated randomly by the standard C random number generator function, only numbers 0 and 1 are generated;
   * *4-values* &ndash; every 16-bit word is generated randomly by the standard C random number generator function, only numbers 0, 1, 256 and 257 are generated;
   * *killer-qs-r* &ndash; this sequence kills Hoare's Quicksort from its right edge;
