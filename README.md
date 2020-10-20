@@ -11,7 +11,7 @@ Various kinds of filling used for testing and benchmarking:
   * *random-1* &ndash; every byte is generated randomly by the standard C random number generator function, numbers in range 0 and 255 are generated;
   * *random-2* &ndash; every byte is generated randomly by a homebrew random number generator, numbers in range 0 and 255 aew generated;;
   * *2-values* &ndash; every byte is generated randomly by the standard C random number generator function, only numbers 0 and 1 are generated;
-  * *4-values* &ndash; every word is generated randomly by the standard C random number generator function, only numbers 0, 1, 256 and 257 are generated;
+  * *4-values* &ndash; every 16-bit word is generated randomly by the standard C random number generator function, only numbers 0, 1, 256 and 257 are generated;
   * *killer-qs-r* &ndash; this sequence kills Hoare's Quicksort from its right edge;
   * *killer-qs-l* &ndash; this sequence kills Hoare's Quicksort from its left edge;
   * *reversed* &ndash; every next element is equal or lower than the previous;
