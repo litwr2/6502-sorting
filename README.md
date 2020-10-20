@@ -1,7 +1,7 @@
 # 6502-sorting
 implementations of various sorting algos for the 6502
 
-For each sorting routine the next information is provided:  its size, required amount of zero page locations, whether it uses stack or not, required amount of additional memory, the size of code for its call.  All sizes are in bytes.  Benchmark results are clock cycles.
+For each sorting routine the next information is provided:  its size, required amount of zero page locations, whether it uses stack or not, required amount of additional memory, the size of code for its call.  All sizes are in bytes.  Benchmark results are clock cycles.  So one clock cycle is equal to one millionth of a second for the 6502 at 1 MHz.
 
 Quicksort depends on its *stacklvl* parameter, it must be more than binary logarithm of the number of elements in the sorted array.  The value 26 is used as its default value. 
 
