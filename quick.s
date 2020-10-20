@@ -1,10 +1,10 @@
 ;for vasm assembler, madmac syntax
-stacklvl = 26   ;don't make it more than 32
-stackint = 10   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
+stacklvl = 26   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
+stackint = 10   ;stack space reserved for irq and nmi
 
 quicksort:    ;it is sligtly faster if it has page offset about $90 - $d0
               ;this code works only for the even align for data for ESZ=2
-.i2lo = 10   ;zero page locations, select any available on your system
+.i2lo = 10    ;zero page locations, select any available on your system
 .i2hi = .i2lo+1
 .j2lo = 12
 .j2hi = .j2lo+1
