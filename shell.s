@@ -34,12 +34,12 @@ shellsort:     ;it is sligtly faster if it has page offset about 0 - $30
           sta .i2hi
 .lss3:    ;lda .i2hi
 .sz2hi:   cmp #0
-          bcc .lss2
-          bne .lssm
+          bcc .lss2  ;if shelltabidx links with a gap which is less than sz
+          bne .lssm  ;then it is possible to use just 'bne .lss2' here
 
           lda .i2lo
 .sz2lo:   cmp #0
-          bcc .lss2
+          bcc .lss2  ;and 'bne .lss2' here
 
 .lssm:    ldx #0
           dex
@@ -111,4 +111,8 @@ shellsort:     ;it is sligtly faster if it has page offset about 0 - $30
           jmp .lss3
 
 .gaptable: dc.w 1*ESZ, 4*ESZ, 10*ESZ, 23*ESZ, 57*ESZ, 132*ESZ, 301*ESZ, 701*ESZ, 1750*ESZ, 4759*ESZ, 12923*ESZ
+;    if ESZ==1
+;     dc.w 33001*ESZ
+;    endif
+
 
