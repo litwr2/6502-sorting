@@ -1,5 +1,24 @@
 ;for vasm assembler, madmac syntax
 
+;#define sz SIZE
+;#define type TYPE
+;#define swap(x,y) {type t = x; x = y; y = t;}
+;type data[sz];
+;void selection() {
+;    type *i = data, *k, *min;
+;l7: min = i;
+;    k = i + 1;
+;l3: if (k == data + sz) goto l8;
+;    if (*k >= *min) goto l4;
+;    min = k;
+;l4: k++;
+;    goto l3;
+;l8: //if (min != i)
+;    swap(*min, *i);
+;    i++;
+;    if (i != k) goto l7;
+;}
+
 selsort:    ;it is sligtly faster if it has page offset about 0 - $80
 .i2lo = 10  ;zero page locations, select any available on your system
 .i2hi = .i2lo+1
