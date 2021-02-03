@@ -1,5 +1,17 @@
 ;for vasm assembler, madmac syntax
 
+;#define sz SIZE
+;type data[sz];
+;void radix8(uint8_t *a, int size) {
+;    for (int i = 0; i < 256; i++) c[i] = 0;
+;    for (int j = 0; j < size; j++)
+;        c[a[j]]++;
+;    int j = 0;
+;    for (int i = 0; i < 256; i++)
+;        for (int k = 0; k < c[i]; k++)
+;            a[j++] = i;
+;}
+
 radix8:      ;it is sligtly faster if it has page offset about 0 - $80
          stx .szlo+1
          sty .szhi+1
