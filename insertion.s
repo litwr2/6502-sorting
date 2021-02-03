@@ -1,5 +1,22 @@
 ;for vasm assembler, madmac syntax
 
+;#define sz SIZE
+;#define type TYPE
+;#define swap(x,y) {type t = x; x = y; y = t;}
+;type data[sz];
+;void insertion() {
+;    type *i = data + 1, *j, *k;
+;l1: if (i >= data + sz) return;
+;    j = i;
+;l3: k = j - 1;
+;    if (j == data || *k <= *j) goto l2;
+;    swap(*k, *j);
+;    j--;
+;    goto l3;
+;l2: i++;
+;    goto l1;
+;}
+
 insertion:    ;it is sligtly faster if it has page offset about 0 - $80
 .k2lo = 10    ;zero page locations, select any available on your system
 .k2hi = .k2lo+1
