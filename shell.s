@@ -1,5 +1,40 @@
 ;for vasm assembler, madmac syntax
 
+;#define sz SIZE
+;#define type TYPE
+;#define tabsz 12
+;#define swap(x,y) {type t = x; x = y; y = t;}
+;type data[sz];
+;unsigned short gap2table[tabsz] = {2, 8, 20, 46, 114, 264, 602, 1402, 3500, 4759*2, 12923*2, 30001*2};
+;void shell() {
+;    type *j2, *i2, *stack;
+;    unsigned short gap2;
+;    unsigned char x = tabsz;
+;lss1:
+;    if (x == 0) return;
+;    j2 = data;
+;    gap2 = gap2table[x - 1]/2;
+;    i2 = data + gap2;
+;lss3:
+;    if (i2 == data + sz) {
+;       x--;
+;       goto lss1;
+;    }
+;    stack = j2;
+;lss8:
+;    if (*i2 < *j2) {
+;        swap(*j2, *i2);
+;        i2 = j2;
+;        if (j2 - gap2 >= data) {
+;            j2 -= gap2;
+;            goto lss8;
+;        }
+;    }
+;    j2 = stack + 1;
+;    i2 = j2 + gap2;
+;    goto lss3;
+;}
+
 shellsort:     ;it is sligtly faster if it has page offset about 0 - $30
 .j2lo   = 12   ;zero page locations, select any available on your system
 .j2hi   = .j2lo+1

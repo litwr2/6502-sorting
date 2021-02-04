@@ -2,9 +2,9 @@
 
 ;#define sz SIZE
 ;type data[sz];
-;void radix8(uint8_t *a, int size) {
+;void radix8(uint8_t *a) {
 ;    for (int i = 0; i < 256; i++) c[i] = 0;
-;    for (int j = 0; j < size; j++)
+;    for (int j = 0; j < sz; j++)
 ;        c[a[j]]++;
 ;    int j = 0;
 ;    for (int i = 0; i < 256; i++)
