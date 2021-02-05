@@ -2,6 +2,66 @@
 stacklvl = 26   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
 stackint = 10   ;stack space reserved for irq and nmi
 
+;#include <setjmp.h>
+;#define sz 30000
+;#define splimit 20
+;#define type unsigned short
+;#define ssz 200
+;#define swap(x,y) {type t = x; x = y; y = t;}
+;jmp_buf jmp_point;
+;type *sa[ssz], **sp;
+;void push(type *d) {
+;    *sp-- = d;
+;}
+;type* pop() {
+;    return *++sp;
+;}
+;type data[sz];
+;type x, *ub, *lb, *i2, *j2;
+;void quick0() {
+;    sp--;
+;    if (sp - sa < splimit) longjmp(jmp_point, 1);
+;    i2 = lb;
+;    j2 = ub;
+;    x = *(type*)(((unsigned long)j2 + (unsigned long)i2) >> 1 & ~(sizeof(type) - 1));
+;qsloop1:
+;    if (*i2 >= x) goto qs_l1;
+;    i2 += 1;
+;    goto qsloop1;
+;qs_l1:
+;    if (x >= *j2) goto qs_l3;
+;    j2 -= 1;
+;    goto qs_l1;
+;qs_l3:
+;    if (j2 < i2) goto qs_l8;
+;    if (j2 != i2) swap(*i2, *j2);
+;    i2 += 1;
+;    j2 -= 1;
+;    if (j2 >= i2) goto qsloop1;
+;qs_l8:
+;    if (lb >= j2) goto qs_l5;
+;    push(i2);
+;    push(ub);
+;    ub = j2;
+;    quick0();
+;    ub = pop();
+;    i2 = pop();
+;qs_l5:
+;    if (i2 >= ub) goto quit;
+;    lb = i2;
+;    quick0();
+;quit:
+;    sp++;
+;}
+;void quick() {
+;    type *gub = ub, *glb = lb;
+;    setjmp(jmp_point);
+;    sp = sa + ssz - 1;
+;    ub = gub;
+;    lb = glb;
+;    quick0();
+;}
+
 quicksort:    ;it is sligtly faster if it has page offset about $90 - $d0
               ;this code works only for the even align for data for ESZ=2
 .i2lo = 10    ;zero page locations, select any available on your system

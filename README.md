@@ -17,8 +17,8 @@ Various kinds of filling have been used for testing and benchmarking:
   * *reversed* &ndash; every next element is equal or lower than the previous;
   * *sorted* &ndash; every next element is equal or higher than the previous;
   * *constant* &ndash; all elements are equal.
-  
-The killer sequence generators may be taken from this [file](https://github.com/litwr2/research-of-sorting/blob/master/fillings.cpp), seek for *fill_for_quadratic_qsort_hoare* routines.
+
+The killer sequence generators may be taken from this [file](https://github.com/litwr2/research-of-sorting/blob/master/fillings.cpp), seek for *fill_for_quadratic_qsort_hoare* routines.  The *random-2* generator is available within the same file, seek for *fill_homebrew_randomly* routine.
 
 ## Byte sorting
 

@@ -5,7 +5,7 @@
 ;#define tabsz 12
 ;#define swap(x,y) {type t = x; x = y; y = t;}
 ;type data[sz];
-;unsigned short gap2table[tabsz] = {2, 8, 20, 46, 114, 264, 602, 1402, 3500, 4759*2, 12923*2, 30001*2};
+;unsigned short gap2table[tabsz] = {1, 4, 10, 23, 57, 132, 301, 701, 1750, 4759, 12923, 30001};
 ;void shell() {
 ;    type *j2, *i2, *stack;
 ;    unsigned short gap2;
@@ -13,10 +13,10 @@
 ;lss1:
 ;    if (x == 0) return;
 ;    j2 = data;
-;    gap2 = gap2table[x - 1]/2;
+;    gap2 = gap2table[x - 1];
 ;    i2 = data + gap2;
 ;lss3:
-;    if (i2 == data + sz) {
+;    if (i2 >= data + sz) {
 ;       x--;
 ;       goto lss1;
 ;    }
