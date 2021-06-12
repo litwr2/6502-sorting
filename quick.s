@@ -23,7 +23,7 @@ stackint = 10   ;stack space reserved for irq and nmi
 ;    if (sp - sa < splimit) longjmp(jmp_point, 1);
 ;    i2 = lb;
 ;    j2 = ub;
-;    x = *(type*)(((unsigned long)j2 + (unsigned long)i2) >> 1 & ~(sizeof(type) - 1));
+;    x = *(type*)(((unsigned long)j2 + (unsigned long)i2) >> 1 & ~((1 << sizeof(type)) - 1));
 ;qsloop1:
 ;    if (*i2 >= x) goto qs_l1;
 ;    i2 += 1;
