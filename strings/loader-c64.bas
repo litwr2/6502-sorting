@@ -1,4 +1,4 @@
-0 rem for c64 basic
+0 rem for the c64 basic
 2 dim aa$(4000):sd=-2
 5 print "select sorting method:"
 10 print "1. ultrasort (compute 40, 1983)"
