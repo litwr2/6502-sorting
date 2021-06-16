@@ -1,67 +1,72 @@
-0 rem for the c64 basic
-2 dim aa$(4000):sd=-2
-5 print "select sorting method:"
-10 print "1. ultrasort (compute 40, 1983)"
-20 print "2. lightningsort (compute 52, 1984)"
-30 print "3. enhanced quicksort (2021)"
-40 print "0. exit"
-50 inputk$:if k$="" goto50
-60 k=val(k$):if k=0 then end
-70 if k=1 thenf$="ultra"
-80 if k=2 thenf$="lightning"
-90 if k=3 thenf$="enhanced"
-100 if k>3 goto10
-105 print "loading the sort routine"
-110 open8,8,8,f$+"sort,p,r"
-120 i=49152:get#8,k$:get#8,k$
-130 get#8,k$
-140 if k$="" then k$=chr$(0)
-150 pokei,asc(k$):i=i+1:if st<>0 goto170
-160 goto 130
-170 close8:print "the sort routine is loaded"
-180 print "how many strings do you want to sort?"
-182 print "1. 500"
-184 print "2. 1000"
-186 print "3. 2000"
-187 print "4. 4000"
-188 print "0. back"
-190 input k$:n=val(k$)
-200 if (n<0)or(n>4) goto180
-210 if n=0 goto5
-220 n=250*2^n
-230 print "choose filling method:"
-240 print "1. random"
-250 print "2. ordered"
-260 print "3. reversed"
-270 print "4. constant"
-280 print "5. two strings"
-290 print "6. hundred strings"
-300 print "7. slowest for enhanced sort"
-310 print "0. back"
-320 input k$:r=val(k$)
-330 if (r<0)or(r>7) goto230
-340 if r=0 goto180
-350 print "creating"n;
-360 on r gosub1000,1200,1400,1600,1800,2000,2200
-370 print "print strings? (y/n)"
-380 getk$:if k$="n" goto410
-390 if k$<>"y" goto380
-400 for i=1 to n:print i;aa$(i):next
-410 print "sorting..."
-420 t1=ti
-430 sys 49152,n,aa$(1)
-440 t2=ti
-450 print "done"
-470 print "print sorted strings? (y/n)"
-480 getk$:if k$="n" goto510
-490 if k$<>"y" goto480
-500 for i=1 to n:print i;aa$(i):next
-510 print n" elements sorted in"(t2-t1)/60"seconds"
-520 print "sort again? (y/n/b)"
-530 getk$:if k$="n" then end
-540 if k$="y" goto350
-550 if k$="b" goto230
-560 goto530
+10 rem for the c64 basic, v2
+20 dim aa$(4000):sd=-2
+30 print "select sorting method:"
+40 print "1. ultrasort (compute 40, 1983)"
+50 print "2. lightningsort (compute 52, 1984)"
+60 print "3. enhanced quicksort (2021)"
+70 print "0. exit"
+80 inputk$
+90 k=val(k$):if k=0 then end
+100 if k=1 thenf$="ultra"
+110 if k=2 thenf$="lightning"
+120 if k=3 thenf$="enhanced"
+130 if k>3 goto30
+140 print "loading the sort routine"
+150 open8,8,8,f$+"sort,p,r"
+160 i=49152:get#8,k$:get#8,k$
+170 get#8,k$
+180 if k$="" then k$=chr$(0)
+190 pokei,asc(k$):i=i+1:if st<>0 goto210
+200 goto170
+210 close8:print "the sort routine is loaded"
+220 print "how many strings do you want to sort?"
+230 print "1. 500"
+240 print "2. 1000"
+250 print "3. 2000"
+260 print "4. 4000"
+270 print "0. back"
+280 input k$:n=val(k$)
+290 if (n<0)or(n>4) goto220
+300 if n=0 goto30
+310 n=250*2^n
+320 print "choose a method of filling :"
+330 print "1. random"
+340 print "2. ordered"
+350 print "3. reversed"
+360 print "4. constant"
+370 print "5. two strings"
+380 print "6. hundred strings"
+390 print "7. slowest for enhanced sort"
+400 print "0. back"
+410 input k$:r=val(k$)
+420 if (r<0)or(r>7) goto320
+430 if r=0 goto220
+440 print "creating"n;
+450 on r gosub1000,1200,1400,1600,1800,2000,2200
+460 print "print strings? (y/n)"
+470 getk$:if k$="n" goto500
+480 if k$<>"y" goto470
+490 for i=1 to n:print i;aa$(i):next
+500 print "sorting..."
+510 t1=ti
+520 sys 49152,n,aa$(1)
+530 t2=ti
+540 print "done"
+550 print "print sorted strings? (y/n)"
+560 getk$:if k$="n" goto590
+570 if k$<>"y" goto560
+580 for i=1 to n:print i;aa$(i):next
+590 print "check sorted strings? (y/n)"
+600 getk$:if k$="n" goto640
+610 if k$<>"y" goto600
+620 for i=2 to n:if aa$(i-1)>aa$(i) then print "error: " aa$(i-1) " > " aa$(i):end
+630 print i"{up}":next
+640 print n" elements sorted in"(t2-t1)/60"seconds"
+650 print "sort again? (y/n/b)"
+660 getk$:if k$="n" then end
+670 if k$="y" goto440
+680 if k$="b" goto320
+690 goto660
 1000 print "random strings"
 1010 i=rnd(sd)
 1020 for i=1 to n
