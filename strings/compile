@@ -1,0 +1,1 @@
+vasm6502_madmac $1 -Fbin -cbm-prg -o out.prg -L out.lst
