@@ -1,33 +1,12 @@
-10 rem for the c64 basic, v3
+10 rem for the plus4 basic
 20 dim aa$(4000):sd=-2:u=8
-30 print "select sorting method:"
-40 print "1. ultrasort (compute 40, 1983)"
-50 print "2. lightningsort (compute 52, 1984)"
-60 print "3. enhanced quicksort (2021)"
-70 print "0. exit"
-80 inputk$
-90 k=val(k$):if k=0 then end
-100 if k=1 thenf$="ultra"
-110 if k=2 thenf$="lightning"
-120 if k=3 thenf$="enhanced"
-130 if k>3 goto30
-140 print "loading the sort routine"
-150 open8,u,8,f$+"sort,p,r"
-160 i=49152:get#8,k$:get#8,k$
-170 get#8,k$
-180 if k$="" then k$=chr$(0)
-190 pokei,asc(k$):i=i+1:if st<>0 goto210
-200 goto170
-210 close8:print "the sort routine is loaded"
 220 print "how many strings do you want to sort?"
 230 print "1. 500"
 240 print "2. 1000"
 250 print "3. 2000"
 260 print "4. 4000"
-270 print "0. back"
 280 input k$:n=val(k$)
-290 if (n<0)or(n>4) goto220
-300 if n=0 goto30
+290 if (n<=0)or(n>4) goto220
 310 n=250*2^n
 320 print "choose a method of filling:"
 330 print "1. random"
@@ -49,7 +28,7 @@
 490 for i=1 to n:print i;aa$(i):next
 500 print "sorting..."
 510 t1=ti
-520 sys 49152,n,aa$(1)
+520 sys4164,n,aa$(1)
 530 t2=ti
 540 print "done"
 550 print "print sorted strings? (y/n)"
