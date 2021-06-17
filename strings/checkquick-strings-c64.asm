@@ -39,7 +39,7 @@ zp3 = $fd   ;+$fe
         sbc #0
         tay
         lda $48
-        jsr quicksort     ;C=0 means fail
+        jsr quicksort     ;C=0 means fail, your system has not enough free stack memory
         bcs *+3
         brk               ;error here
         rts
