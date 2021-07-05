@@ -41,7 +41,7 @@ zp3 = $fd   ;+$fe
         lda $48
         jsr quicksort     ;C=0 means fail, your system doesn't have enough free stack memory
         bcs *+3
-        brk               ;error here
+        brk               ;error here, or call insertionsort
         rts
 
      org $c090  ;it may be commented to get the most compact code
