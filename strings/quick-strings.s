@@ -54,18 +54,18 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
            txs
 .szhi:     lda #>0
            sta .ubhi+1
-.szlo:     lda #<0
-           sta .ublo+1
 .datahi:   lda #>0
            sta .lbhi+1
 .datalo:   lda #<0
            sta .lblo+1
+.szlo:     lda #<0
+           sta .ublo+1
 .quicksort0:
            tsx
 .stacklim: cpx #0
            bcc .qs_csp
 
-           lda .ublo+1
+           ;lda .ublo+1
            sbc .lblo+1    ;CY=1
            tax
            lda .ubhi+1
@@ -258,8 +258,8 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
 
            lda .i2hi
            sta .lbhi+1
-           txa
-           sta .lblo+1
+           stx .lblo+1
+           lda .ublo+1
            jsr .quicksort0   ;don't use the tail call optimization! it can be much slower for some data
 .qs_l7:    rts       ;C=1 - ok
 

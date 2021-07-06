@@ -83,10 +83,10 @@ start:  JSR $9491   ;c+4 - skip comma
         jsr quicksort     ;C=0 means fail, your system does not have enough free stack memory
         sta $ff3e
         bcs *+3
-        brk               ;error here
+        brk               ;error here, or call insertionsort
         rts
 
      org $1090  ;it may be commented to get the most compact code
-;The next code is architecture independent
-     include "quick-strings.s"
+;the plus4 uses a sophisticated garbage collector that uses additional information for strings.  So it must use a special code
+     include "quick-strings-plus4.s"
 

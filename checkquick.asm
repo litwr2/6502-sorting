@@ -6,7 +6,7 @@ ESZ = 2      ;an element size
 data = $400  ;sorted array must start here
 sz = 30000   ;number of elements in the array
 
-ODD_OFFSET = (data & 1) && ESZ=2
+ODD_OFFSET = (data & 1) && ESZ=2  ;1 makes code larger and slower
 
      org $200
         lda #<data
