@@ -14,5 +14,5 @@ sz = 60000      ;number of elements in the array
         brk               ;stop here
 
         org $300
-        .include "insertion.s"
+        include "insertion.s"
 

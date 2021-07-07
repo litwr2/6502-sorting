@@ -1,4 +1,4 @@
-;for vasm assembler, madmac syntax
+;for vasm assembler, oldstyle syntax
 ;This code depends on the C64 architecture
 ;$47,$48 - start of arrays
 
@@ -6,6 +6,7 @@ param = $47
 zp1 = $4e   ;+$4f  ;zero page locations, select any available on your system
 zp2 = $50   ;+$51
 zp3 = $fd   ;+$fe
+mindepth = 14      ;no more than 16384 strings
 
      org $c000     ;c64
         JSR $AEFD   ;c64 - skip comma
@@ -39,9 +40,7 @@ zp3 = $fd   ;+$fe
         sbc #0
         tay
         lda $48
-        jsr quicksort     ;C=0 means fail, your system doesn't have enough free stack memory
-        bcs *+3
-        brk               ;error here, or call insertionsort
+        jsr quicksort
         rts
 
      org $c090  ;it may be commented to get the most compact code

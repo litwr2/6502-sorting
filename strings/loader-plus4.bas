@@ -1,4 +1,4 @@
-10 rem for the plus4 basic
+10 rem for the plus4 basic, v2
 20 dim aa$(4000):sd=-2:u=8
 220 print "how many strings do you want to sort?"
 230 print "1. 500"
@@ -13,22 +13,23 @@
 340 print "2. ordered"
 350 print "3. reversed"
 360 print "4. constant"
-370 print "5. two strings"
-380 print "6. hundred strings"
+370 print "5. two random strings"
+380 print "6. hundred random strings"
 390 print "7. slowest for enhanced sort"
+395 print "8. empty"
 400 print "0. back"
 410 input k$:r=val(k$)
-420 if (r<0)or(r>7) goto320
+420 if (r<0)or(r>8) goto320
 430 if r=0 goto220
 440 print "creating"n;
-450 on r gosub1000,1200,1400,1600,1800,2000,2200
+450 on r gosub1000,1200,1400,1600,1800,2000,2200,2400
 460 print "print strings? (y/n)"
 470 getk$:if k$="n" goto500
 480 if k$<>"y" goto470
 490 for i=1 to n:print i;aa$(i):next
 500 print "sorting..."
-510 t1=ti
-520 sys4164,n,aa$(1)
+510 t2=0:t1=ti
+520 sys4145,n,aa$(1)
 530 t2=ti
 540 print "done"
 550 print "print sorted strings? (y/n)"
@@ -94,3 +95,10 @@
 2260 next
 2265 close8
 2270 return
+2400 print "empty strings"
+2420 for i=1 to n
+2430 print i"{up}"
+2450 aa$(i)=""
+2460 next
+2470 return
+

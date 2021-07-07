@@ -1,4 +1,4 @@
-;for vasm assembler, madmac syntax
+;for vasm assembler, oldstyle syntax
 
 ;#define sz SIZE
 ;#define type TYPE
@@ -145,9 +145,9 @@ shellsort:     ;it is sligtly faster if it has page offset about 0 - $30
           sta .i2hi
           jmp .lss3
 
-.gaptable: dc.w 1*ESZ, 4*ESZ, 10*ESZ, 23*ESZ, 57*ESZ, 132*ESZ, 301*ESZ, 701*ESZ, 1750*ESZ, 4759*ESZ, 12923*ESZ
+.gaptable: word 1*ESZ, 4*ESZ, 10*ESZ, 23*ESZ, 57*ESZ, 132*ESZ, 301*ESZ, 701*ESZ, 1750*ESZ, 4759*ESZ, 12923*ESZ
 ;    if ESZ==1
-;     dc.w 33001*ESZ
+;     word 33001*ESZ
 ;    endif
 
 

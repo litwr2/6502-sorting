@@ -1,4 +1,4 @@
-;for vasm assembler, madmac syntax
+;for vasm assembler, oldstyle syntax
 stacklvl = 26   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
 stackint = 10   ;stack space reserved for irq and nmi
 

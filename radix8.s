@@ -1,4 +1,4 @@
-;for vasm assembler, madmac syntax
+;for vasm assembler, oldstyle syntax
 
 ;#define sz SIZE
 ;type data[sz];

@@ -1,26 +1,19 @@
-;for vasm assembler, madmac syntax
-;This code depends on the C/plus4 architecture
+;for vasm assembler, oldstyle syntax
+;This code depends on the Commodore/Plus4 architecture
+;version 2
 ;$47,$48 - start of arrays
 
 param = $47
 zp1 = $d0   ;+$d1  ;zero page locations, select any available on your system
 zp2 = $d2   ;+$d3
 zp3 = $d4   ;+$d5
+mindepth = 15      ;no more than 32768 strings
 
      org $1001  ;c+4
-     dc.b $b,$10,$a,0,$9e,"4109",0,0,0
+     byte $b,$10,$a,0,$9e,"4109",0,0,0
 
      ;org $100d
-init:   lda #$13
-        sta $2c
-        sta $2e
-        sta $30
-        sta $32
-        lda #0
-        sta $1300
-        sta $1301
-        sta $1302
-        rts
+init:   jmp init0
 
 irq:    dec $7fd
         bpl intsc
@@ -80,13 +73,57 @@ start:  JSR $9491   ;c+4 - skip comma
         sbc #0
         tay
         lda $48
-        jsr quicksort     ;C=0 means fail, your system does not have enough free stack memory
+        jsr quicksort
+.loop:  ldy #0            ;fix gc data
+        lda ($47),y
+        beq .cont
+
+        iny
+        clc
+        adc ($47),y
+        sta zp1
+        iny
+        lda #0
+        adc ($47),y
+        sta zp1+1
+        lda $48
+        dey
+        sta (zp1),y
+        dey
+        lda $47
+        sta (zp1),y
+.cont:  lda $47
+        adc #3
+        sta $47
+        bcc *+4
+        inc $48
+        lda quicksort.szlo+1
+        cmp $47
+        lda quicksort.szhi+1
+        sbc $48
+        bcs .loop
+
         sta $ff3e
-        bcs *+3
-        brk               ;error here, or call insertionsort
         rts
 
-     org $1090  ;it may be commented to get the most compact code
-;the plus4 uses a sophisticated garbage collector that uses additional information for strings.  So it must use a special code
-     include "quick-strings-plus4.s"
+     ;org $10c0  ;it may be commented to get the most compact code
+;The next code is architecture independent
+     include "quick-strings.s"
+
+;The C+4 startup code
+init0: lda #>(init0+1)
+        sta $2c
+        sta $2e
+        sta $30
+        sta $32
+       lda #<init0+1
+        sta $2b
+        sta $2d
+        sta $2f
+        sta $31
+        lda #0
+        sta init0
+        sta init0+1
+        sta init0+2
+        rts
 

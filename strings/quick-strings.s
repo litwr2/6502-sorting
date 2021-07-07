@@ -1,6 +1,8 @@
-;for vasm assembler, madmac syntax
+;for vasm assembler, oldstyle syntax
 ;a safe quicksort implementation, insertionsort optimization is used
+;if there is no enough stack space it switches to insertionsort
 stacklvl = 20   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
+                ;stacklvl must be greater than or equal to mindepth
 stackint = 10   ;stack space reserved for irq and nmi
 insert_lim = 10 ;when switch to insertionsort
 
@@ -13,11 +15,11 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
 .xhi = .xlo+1
 
            sta .datahi+1
-           lda param
-           sta .datalo+1
            stx .szlo+1
            sty .szhi+1
-           ldx .datahi+1
+           tax
+           lda param
+           sta .datalo+1
            sec
 .loop255:  sbc #255
            tay
@@ -34,6 +36,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
            eor #3
            asl
            sta .corr32+1
+           jsr .setb      ;for insertionsort
            lda #4
 .tval:     sbc #0     ;CY=0
            sta .corr31+1
@@ -41,25 +44,17 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
            stx .qs_csp+1
            txa
            sec
-           sbc #stacklvl*6
-           bcs *+3
-           rts        ;error: not enough stack space, C=0 - error
+           sbc #stacklvl*6+stackint
+           bcs .qs_ok
 
+           adc #(stacklvl-mindepth)*6
+           bcc .insjmp
+
+.qs_ok:    adc #stackint-1  ;C=1
            sta .stacklim+1
-           cmp #stackint   ;this check may be skipped if irq are disabled and nmi are impossible
-           bcs *+3
-           rts        ;error: irq may get not enough space, C=0 - error
-
 .qs_csp:   ldx #0
            txs
-.szhi:     lda #>0
-           sta .ubhi+1
-.datahi:   lda #>0
-           sta .lbhi+1
-.datalo:   lda #<0
-           sta .lblo+1
-.szlo:     lda #<0
-           sta .ublo+1
+           jsr .setb
 .quicksort0:
            tsx
 .stacklim: cpx #0
@@ -75,7 +70,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
            txa
            cmp #insert_lim*2
            bcs .quick
-           jmp .insertion
+.insjmp:   jmp .insertion
     
 .quick:    lda .lblo+1
            sta .i2lo
@@ -195,16 +190,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
            bcc .lblo
            beq .qs_l9
 
-.l1:       ldy #2
-.qsloop2:  lda (.j2lo),y    ;exchange elements with i and j indices
-           tax
-           lda (.i2lo),y
-           sta (.j2lo),y
-           txa
-           sta (.i2lo),y
-           dey
-           bpl .qsloop2
-
+.l1:       jsr .xchg
 .qs_l9:    lda #2        ;CY=1
            adc .i2lo
            sta .i2lo
@@ -262,6 +248,17 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
            lda .ublo+1
            jsr .quicksort0   ;don't use the tail call optimization! it can be much slower for some data
 .qs_l7:    rts       ;C=1 - ok
+
+.setb:     
+.szhi:     lda #>0
+           sta .ubhi+1
+.datahi:   lda #>0
+           sta .lbhi+1
+.datalo:   lda #<0
+           sta .lblo+1
+.szlo:     lda #<0
+           sta .ublo+1
+           rts
 
 .insertion:
 .k2lo = .i2lo
@@ -330,7 +327,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
             bcs .ii2lo
 
 .jlen:      cpy #0
-            bcs .xchg
+            bcs .cont2
 
 .tmp4:     lda $1000,y
 .tmp3:     cmp $1000,y
@@ -345,6 +342,15 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
             bne .ll1      ;always
 
 .cont1:     sec
+.cont2:     jsr .xchg
+            lda .j2lo
+            sbc #3   ;CY=1
+            sta .j2lo
+            bcs .ll3
+
+            dec .j2hi
+            bne .ll3     ;always
+
 .xchg:      ldy #2
 .loop:      lda (.j2lo),y
             tax
@@ -354,11 +360,5 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - other opti
             sta (.k2lo),y
             dey
             bpl .loop
+            rts
 
-            lda .j2lo
-            sbc #3   ;CY=1
-            sta .j2lo
-            bcs .ll3
-
-            dec .j2hi
-            bne .ll3     ;always
