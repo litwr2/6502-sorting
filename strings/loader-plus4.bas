@@ -76,8 +76,8 @@
 1810 i=rnd(sd)
 1820 for i=1 to n
 1830 print i"{up}"
-1850 if (rnd(1)>=.5) then aa$(i)="1111":goto1860
-1860 a$(i)="2222"
+1850 if (rnd(1)>=.5) then aa$(i)="1111":next
+1860 aa$(i)="2222"
 1860 next
 1870 return
 2000 print "strings mixing 100 strings"

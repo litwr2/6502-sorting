@@ -1,5 +1,6 @@
 ;for vasm assembler, oldstyle syntax
 ;a safe quicksort implementation, insertionsort optimization is used
+;version 2
 ;if there is no enough stack space it switches to insertionsort
 stacklvl = 20   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
                 ;stacklvl must be greater than or equal to mindepth

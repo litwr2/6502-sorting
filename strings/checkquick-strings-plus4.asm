@@ -7,7 +7,7 @@ param = $47
 zp1 = $d0   ;+$d1  ;zero page locations, select any available on your system
 zp2 = $d2   ;+$d3
 zp3 = $d4   ;+$d5
-mindepth = 15      ;no more than 32768 strings
+mindepth = 14      ;no more than 16384 strings
 
      org $1001  ;c+4
      byte $b,$10,$a,0,$9e,"4109",0,0,0

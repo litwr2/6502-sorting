@@ -1,4 +1,5 @@
 ;for vasm assembler, oldstyle syntax
+;version 2
 ;This code depends on the C64 architecture
 ;$47,$48 - start of arrays
 
