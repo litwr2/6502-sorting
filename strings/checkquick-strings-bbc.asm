@@ -1,5 +1,5 @@
 ;for vasm assembler, oldstyle syntax
-;version 2
+;version 1
 ;This code depends on the BBC Micro architecture
 
 param = $604
