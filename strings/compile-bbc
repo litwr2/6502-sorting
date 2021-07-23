@@ -1,0 +1,14 @@
+D2=z1.ssd
+D=qsort-bbcmicro.ssd
+#beeb blank_ssd $D
+beeb delete $D -y QRELOC EQSORT QTESTS
+beeb delete $D2 -y QTESTS0
+vasm6502_oldstyle checkquick-strings-bbc.asm -Fbin -o EQSORT -L out.lst || exit
+awk -f relocator.awk out.lst >reloc-data.s || exit
+vasm6502_oldstyle relocator.asm -Fbin -o QRELOC -L relocator.lst || exit
+tr '\n' '\r' <loader-bbcmicro.bas >QTESTS0
+beeb putfile $D2 QTESTS0
+beeb putfile $D QRELOC EQSORT
+rm QRELOC EQSORT QTESTS0 reloc-data.s
+~/retro/bbc/b-em-2.2/b-em
+#mess bbcb -flop1 $D -flop2 $D2 #-debug
