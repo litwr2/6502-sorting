@@ -4,33 +4,20 @@ zp2 = $72   ;+$73
 zp3 = $74   ;+$75
 
      org $200
-        lda $604
-        sta zp1
-        lda $605
-        sta zp1+1
-        ldy #0
-        lda (zp1),y
+        lda $444  ;lo(q%)
         sta zp2
         sta zp3
-        iny
-        lda (zp1),y
+        lda $445  ;hi(q%)
         sta zp2+1
         sec
         sbc #2
         sta zp3+1
-        lda $601
-        sta zp1
-        lda $602
-        sta zp1+1
-        ldy #0
-        lda (zp1),y
+        lda $424   ;lo(i%)
         adc #<data-1   ;CY=1
-        tax
-        iny
-        lda (zp1),y
+        sta zp1
+        lda $425   ;hi(i%)
         adc #>(data-$200)
         sta zp1+1
-        stx zp1
         ldx #0
 loop:   txa
         tay

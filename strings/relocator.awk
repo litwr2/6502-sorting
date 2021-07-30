@@ -7,13 +7,12 @@ f == 1 {
     if (x == 0) o = "    byte "
     o = o sprintf("$%x", s)
     x = (x + 1)%16
-    if (x == 0) printf"%s\n", o; else o = o ","
-    n++
+    if (x == 0) print o; else o = o ","
 }
 /##/ {
     f = 1
 }
 END {
     if (x != 0) print substr(o, 1, length(o) - 1)
-    printf "    byte $ff\n", n
+    print "    byte $ff"
 }

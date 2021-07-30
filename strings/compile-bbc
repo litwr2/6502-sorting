@@ -10,5 +10,5 @@ tr '\n' '\r' <loader-bbcmicro.bas >QTESTS0
 beeb putfile $D2 QTESTS0
 beeb putfile $D QRELOC EQSORT
 rm QRELOC EQSORT QTESTS0 reloc-data.s
-~/retro/bbc/b-em-2.2/b-em
+~/retro/bbc/b-em-2.2/b-em $D
 #mess bbcb -flop1 $D -flop2 $D2 #-debug
