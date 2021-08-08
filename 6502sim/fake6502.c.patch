@@ -1,0 +1,13 @@
+--- fake6502.c	2020-09-30 20:17:53.243826693 +0300
++++ fake6502.c.updated	2021-08-08 05:43:14.536623373 +0300
+@@ -171,8 +171,8 @@
+ 
+ 
+ //helper variables
+-uint32_t instructions = 0; //keep track of total instructions executed
+-uint32_t clockticks6502 = 0, clockgoal6502 = 0;
++uint64_t instructions = 0; //keep track of total instructions executed
++uint64_t clockticks6502 = 0, clockgoal6502 = 0;
+ uint16_t oldpc, ea, reladdr, value, result;
+ uint8_t opcode, oldstatus;
+ 

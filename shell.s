@@ -25,10 +25,8 @@
 ;    if (*i2 < *j2) {
 ;        swap(*j2, *i2);
 ;        i2 = j2;
-;        if (j2 - gap2 >= data) {
-;            j2 -= gap2;
+;        if ((j2 -= gap2) >= data)
 ;            goto lss8;
-;        }
 ;    }
 ;    j2 = stack + 1;
 ;    i2 = j2 + gap2;

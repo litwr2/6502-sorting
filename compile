@@ -1,1 +1,24 @@
 vasm6502_oldstyle $1 -Fbin -cbm-prg -o out.prg -L out.lst
+awk 'function op(arg) {
+    if (a[arg] == "") return
+    p = match($0, arg "[ ]*=[ ]*")
+    if (p == 0) p = match($0, "[ ]+org[ ]+")
+    if (p == 0) return
+    s = substr($0, p + RLENGTH)
+    gsub("\\$", "0x", s)
+    p = match(s, "^[x0-9]+")
+    print "#define " a[arg], substr(s, p, RLENGTH)
+    a[arg] = ""
+}
+BEGIN {
+    a["sz"] = "SZE"
+    a["data"] = "DATAADDR"
+    a["ESZ"] = "ESZ"
+    a["org"] = "STARTP"
+}
+{
+    op("sz")
+    op("ESZ")
+    op("data")
+    op("org")
+}' $1 >data.h

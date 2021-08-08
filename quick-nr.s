@@ -1,7 +1,7 @@
 ;for vasm assembler, oldstyle syntax
 ;no recursion variant, it uses 1/3 less stack space
 stacklvl = 26   ;stacklvl*4+stackint is amount of free stack space required for successful work of this routine
-stackint = 10   ;stack space reserved for irq and nmi
+stackint = 12   ;stack space reserved for irq and nmi
 
 ;#define sz 30000
 ;#define type unsigned short
@@ -183,12 +183,12 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $b0
 
 .qs_l3:    lda .j2hi    ;compare i and j
            cmp .i2hi
-           bcc .qs_l2
+           bcc .qs_l8
            bne .qsloop2
 
            lda .j2lo
            cmp .i2lo
-           bcc .qs_l2
+           bcc .qs_l8
            beq .qs_l9
 
 .qsloop2:  lda (.j2lo),y    ;exchange elements with i and j indices
@@ -219,7 +219,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $b0
            sbc .i2hi
            bcs .qsloop1
 
-.qs_l2:
+.qs_l8:
 .lblo:     ldy #0
            cpy .j2lo
 .lbhi:     lda #0
@@ -257,7 +257,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $b0
            pha
            lda .i2hi
            sta .lbhi+1
-           sty .lblo+1
+           sty .lblo+1  ;don't remove these pushes, they actually make things faster
            jmp .quicksort0
 
 .qs_l7:    tsx

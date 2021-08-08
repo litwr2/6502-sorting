@@ -1,6 +1,6 @@
 ;for vasm assembler, oldstyle syntax
 stacklvl = 26   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
-stackint = 10   ;stack space reserved for irq and nmi
+stackint = 12   ;stack space reserved for irq and nmi
 
 ;#include <setjmp.h>
 ;#define sz 30000
@@ -23,7 +23,7 @@ stackint = 10   ;stack space reserved for irq and nmi
 ;    if (sp - sa < splimit) longjmp(jmp_point, 1);
 ;    i2 = lb;
 ;    j2 = ub;
-;    x = *(type*)(((unsigned long)j2 + (unsigned long)i2) >> 1 & ~((1 << sizeof(type)) - 1));
+;    x = *(type*)(((unsigned long)j2 + (unsigned long)i2) >> 1 & ~(sizeof(type) - 1));
 ;qsloop1:
 ;    if (*i2 >= x) goto qs_l1;
 ;    i2 += 1;
@@ -179,12 +179,12 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $d0
 
 .qs_l3:    lda .j2hi    ;compare i and j
            cmp .i2hi
-           bcc .qs_l2
+           bcc .qs_l8
            bne .qsloop2
 
            lda .j2lo
            cmp .i2lo
-           bcc .qs_l2
+           bcc .qs_l8
            beq .qs_l9
 
 .qsloop2:  lda (.j2lo),y    ;exchange elements with i and j indices
@@ -215,7 +215,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $d0
            sbc .i2hi
            bcs .qsloop1
 
-.qs_l2:
+.qs_l8:
 .lblo:     ldy #0
            cpy .j2lo
 .lbhi:     lda #0
