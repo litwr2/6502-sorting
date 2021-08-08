@@ -86,7 +86,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $b0
            sec
            sbc #stacklvl*4
            bcs *+3
-           rts        ;error: quicksort may meditate, C=0 - error
+           rts        ;C=0 - error: not enough stack space
 
            sta .stacklim+1
            cmp #stackint   ;this check may be skipped if irq are disabled and nmi are impossible
