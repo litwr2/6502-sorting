@@ -240,22 +240,22 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $b0
 .ubhi:     sbc #0
            bcs .qs_l7
 
-           lda .lbhi+1
-           pha
-           lda .lblo+1
-           pha
            lda .j2hi
            pha
            lda .j2lo
            pha
+           lda .j2hi
+           pha
+           lda .j2lo
+           pha         ;don't remove these pushes, they actually make things faster
            lda .i2hi
            sta .lbhi+1
-           sty .lblo+1  ;don't remove these pushes, they actually make things faster
+           sty .lblo+1
            jmp .quicksort0
 
 .qs_l7:    tsx
 .inix:     cpx #0
-           beq .quit   ;C=1 is ok
+           beq .quit
 
            pla
            sta .ublo+1

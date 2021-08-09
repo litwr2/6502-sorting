@@ -91,6 +91,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $d0
 .datalo:   ldy #<0
            sty .lblo+1
 .datahi:   lda #>0
+.quicksort1:
            sta .lbhi+1
 .quicksort0:
            tsx
@@ -244,8 +245,7 @@ quicksort:    ;it is sligtly faster if it has page offset about $90 - $d0
            bcs .qs_l7
 
            lda .i2hi
-           sta .lbhi+1
            sty .lblo+1
-           jsr .quicksort0   ;don't use the tail call optimization! it can be much slower for some data
-.qs_l7:    rts       ;C=1 - ok
+           jsr .quicksort1   ;don't use the tail call optimization! it can be much slower for some data
+.qs_l7:    rts
 
