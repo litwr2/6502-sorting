@@ -47,7 +47,9 @@ int gena(int j, int i) {
 #define SZB (ESZ*SZE)
 #define OLIM 9
 #define OSZB (OLIM < SZB ? OLIM : SZB)
+#if !defined(FILLT) || FILLT + 0 == 0
 #define FILLT 1
+#endif
 /* 1 - rnd1, 2 - rnd2, 3 - 2val, 4 - slowqsr, 5 - slowqsl, 6 - rev, 7 - ord, 8 - const */
 void filling() {
     uint16_t *data = (uint16_t*)(memory + DATAADDR);

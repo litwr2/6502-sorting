@@ -1,4 +1,4 @@
-CFLAGS = -O3
+CFLAGS = -O3 -DFILLT=$(FILLT)
 checksort: checksort.o
 checksort.o: checksort.c data.h
 insertion selection shell radix8 quick:
