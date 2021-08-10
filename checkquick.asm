@@ -18,6 +18,6 @@ ODD_OFFSET = (data & 1) && ESZ=2  ;1 makes code larger and slower
         brk               ;stop here
 
      org $2b0
-     include "quick.s"
-     ;include "quick-nr.s"
+     ;include "quick.s"
+     include "quick-nr.s"
 
